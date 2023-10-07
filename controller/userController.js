@@ -54,7 +54,7 @@ const getAllUsers = async (req, res) => {
     }
     //paginatoin
     const page = req.query.page * 1 || 1;
-    const limit = req.query.limit * 1 || 10;
+    const limit = req.query.limit * 1 || 7;
     const skip = (page - 1) * limit;
     query = query.skip(skip).limit(limit);
 
@@ -80,8 +80,21 @@ const getAllUsers = async (req, res) => {
     res.status(500).json({ error: "An error occured" + error.message });
   }
 };
+
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const dlt = await User.deleteOne({ _id: id });
+    if (!dlt) return res.status(400).send("ere");
+    return res.status(200).send("Deleted");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "An error occured" + error.message });
+  }
+};
 module.exports = {
   addUser,
   getUser,
   getAllUsers,
+  deleteUser,
 };
