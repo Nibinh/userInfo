@@ -9,12 +9,12 @@ const addUser = async (req, res) => {
     if (isExisting) return res.status(400).send("Email already registred here");
     if (!name || !email || !age || !role || !salary)
       return res.status(400).send("Fill all Feilds");
-
+    const rolel = role.toLowerCase();
     await User.create({
       name,
       email,
       age,
-      role,
+      role: rolel,
       salary,
     });
     return res.status(200).send("User Registered");
