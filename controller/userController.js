@@ -65,12 +65,12 @@ const getAllUsers = async (req, res) => {
         return res.status(400).send("Page not Found");
       }
     }
+    const search = {};
     if (req.query.search) {
-      const search = {};
-      search.name = { $regex: req.query.search, $options: "i" };
-      query = query.find(search);
-      console.log(query);
+      const regexQuery = new RegExp(req.query.search, "i");
+      search.$or = [{ name: regexQuery }, { email: regexQuery }];
     }
+    query = query.find(search);
 
     const users = await query;
 
