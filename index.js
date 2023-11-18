@@ -6,8 +6,8 @@ const server = express();
 dotenv.config();
 server.use(
   cors({
-    // origin: "https://userinfo-client.onrender.com",
-    origin: "http://localhost:3000",
+    origin: "https://userinfo-client.onrender.com",
+    // origin: "http://localhost:3000",
   })
 );
 server.use(express.json());
